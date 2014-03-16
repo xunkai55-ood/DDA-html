@@ -128,25 +128,16 @@ doMouseMove = function(e) {
     painter.draw(p);
 }
 
-doMouseUp = function(e) {
-    if (state == 2 || e.button != 0) {
-        return;
-    }
-    var p = getPosOnCanvas(e.clientX, e.clientY);
-    if (p[0] == clickPos[0] && p[1] == clickPos[1]) {
-        painter.addPoint(p);
-        painter.draw(p);
-    }
-    if (state == 0) {
-        state = 1;
-    }
-}
-
 doMouseDown = function(e) {
     if (state == 2 || e.button != 0) {
         return;
     }
-    clickPos = getPosOnCanvas(e.clientX, e.clientY);
+    var p = getPosOnCanvas(e.clientX, e.clientY);
+    painter.addPoint(p);
+    painter.draw(p);
+    if (state == 0) {
+        state = 1;
+    }
 }
 
 doKeyDown = function(e) {
@@ -169,7 +160,6 @@ doReset = function() {
 }
 
 canvas.addEventListener("mousedown", doMouseDown, false);
-canvas.addEventListener("mouseup", doMouseUp, false);
 canvas.addEventListener("mousemove", doMouseMove, false);
 window.addEventListener("keydown", doKeyDown, false);
 
